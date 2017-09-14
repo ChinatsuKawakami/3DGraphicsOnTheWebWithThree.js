@@ -1,10 +1,21 @@
+/*
+Author : Engine Arslan
+Editor&Learner : Chinatsu Kawakami
+Download Date: 2017-09-13
+Latest Edit: 2017-09-14
+Description : This is the main.js file to add functions for creating 3D Graphics with Three.js
+*/
+
 function init() {
 	var scene = new THREE.Scene();
 
 	var box = getBox(1, 1, 1);
-
+    var plane = getPlane(4);
+    
+    box.position.y = box.geometry.parameters.height/2;
+    plane.rotation.x = Math.PI/2;
 	scene.add(box);
-
+    scene.add(plane);
 	var camera = new THREE.PerspectiveCamera(
 		45,
 		window.innerWidth/window.innerHeight,
@@ -28,9 +39,23 @@ function init() {
 }
 
 function getBox(w, h, d) {
-	var geometry = new THREE.BoxGeometry(1, 1, 1);
+	var geometry = new THREE.BoxGeometry(w, h, d);
 	var material = new THREE.MeshBasicMaterial({
 		color: 0x00ff00
+	});
+	var mesh = new THREE.Mesh(
+		geometry,
+		material 
+	);
+
+	return mesh;
+}
+
+function getPlane(size) {
+	var geometry = new THREE.PlaneGeometry(size,size);
+	var material = new THREE.MeshBasicMaterial({
+		color: 0xff0000,
+		side: THREE.DoubleSide
 	});
 	var mesh = new THREE.Mesh(
 		geometry,
